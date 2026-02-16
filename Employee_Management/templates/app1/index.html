@@ -1,0 +1,65 @@
+{% extends "app1/base.html" %} 
+
+{% block title %} Home Page {% endblock title %}
+
+{% block content %}
+<div class="container">
+    <!-- Employee Registration Form -->
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2 class="alert alert-primary text-center">Employee Registration</h2>
+
+            <form action="" method="POST" class="p-4 border rounded bg-light shadow">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary w-100">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Employee Records Table -->
+    <h2 class="alert alert-dark text-center my-5">Employee Records</h2>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th>Sno</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                {% for data in datas %}
+                <tr>
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.email }}</td>
+                    <td>{{data.password}}</td> <!-- Masked password -->
+                    <td>
+                        <!-- Update Icon -->
+                        <a href="{% url 'update' data.id %}" class="text-warning me-3">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        
+                        <!-- Delete Icon -->
+                        <form action="{% url 'delete' data.id %}" method="POST" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-link text-danger p-0 border-0">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted">No employees found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}
