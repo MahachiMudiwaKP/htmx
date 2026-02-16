@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@2.0.1"></script>
+    <title>BMI Calculator</title>
+</head>
+<body>
+    <div>
+        <h1>BMI Calculator</h1>
+        <div>
+            <input id="height" type="number" placeholder="Height (m)">
+        </div>
+        <div>
+            <input id="weight" type="number" placeholder="Weight (kg)">
+        </div>
+        <button onclick="calculate()">Calculate</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculate() {
+            const height = document.getElementById('height').value;
+            const weight = document.getElementById('weight').value;
+            
+            const bmi = weight / (height * height);
+            document.getElementById('result').textContent = `BMI: ${bmi.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
